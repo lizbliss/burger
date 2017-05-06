@@ -2,30 +2,33 @@
 var burger = require("../models/burger");
 
 module.exports = function(app) {
-    // Routes
+    //Route to dispaly all burgers
     app.get("/", function(req, res) {
-        burger.selectAllBurgers(function(data) {
+        burger.selectAll(function(data) {
             console.log(data);
             res.render("index", { burgers: data });
         });
 
     });
-
+    //Route to insert a new burger
     app.post("/", function(req, res) {
-        console.log(req.body);
-        burger.insertOne(req.body, function(data) {
-            console.log(data);
+        var burger = {
+            burger_name: req.body.burger
+        };
+        console.log('Body:', burger);
+        burger.insertOne(burger, function(data) {
+            res.redirect("/");
         });
 
     });
-
-    // app.post("/", function(req, res) {
-    //     burger.updateOne(function(data) {
-    //         console.log(data);
-    //         res.render("index", { burgers: data });
-    //     });
-
-    // });
-
-
-}
+    //Route to update a burger 
+    app.put("/:id", function(req, res) {
+        var status = req.body.devoured;
+        var condition = {
+            id: req.params.id
+        }
+        burger.updateOne(status, condition, function(data) {
+            res.redirect("/");
+        });
+    });
+};

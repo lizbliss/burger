@@ -11,55 +11,41 @@ var orm = {
             callBack(data);
         })
     },
-    insertOne: function(tableName, cols, values, callBack) {
-        var queryString = "INSERT INTO " + tableName + "(?) VALUES (?)";
-        connection.query(queryString, [cols], [values], function(err, data) {
+    insertOne: function(tableName, obj, callBack) {
+        var queryString = "INSERT INTO " + tableName + "SET ?";
+        connection.query(queryString, obj, function(err, data) {
             if (err) {
                 console.log("error:" + err.stack);
-            }
-            res.redirect("/")
-        })
+            } else
+
+                callBack(data);
+        });
     },
 
 
-    //     updateOne: function() {
-    //         var queryString = "SELECT * FROM " + tableName;
-    // connection.query("UPDATE burgers SET `burger_name` = joe Where `id` = 1",
-    //     function(err, result) {
-    //         if (err) {
+    updateOne: function(tableName, status, condition, cb) {
+        var queryString = "UPDATE " + tableName + "SET 'devoured'=1 WHERE ?";
+        connection.query(queryString, [condition], function(err, data) {
+            if (err) {
 
-    //             console.log("error:" + err.stack);
-    //         }
-    //         return result
-    //     })
+                console.log("error:" + err.stack);
+            } else
+                cb(data);
+        });
 
-    //     }
-}
+    },
 
-
-
-
-
-
-
-// connection.query("INSERT INTO burgers (burger_name) VALUES (?)", [req.body.burgers], function(err, result) {
-//     if (err) {
-//         console.error("error connecting: " + err.stack);
-//     }
-//     res.redirect("/");
-// });
+    delete(tableName, condition, cb) {
+        var queryString = "DELETE FROM" + tableName + "WHERE ?";
+        connection.query(queryString, condition, function(err, data) {
+            if (err) {
+                console.log("error:" + err.stack);
+            } else
+                cb(data);
+        })
+    });
 
 
-
-
-// connection.query("UPDATE burgers SET burger_name = ? WHERE id = ?", [
-//     req.body.burger_name, req.body.id
-// ], function(err, result) {
-//     if (err) {
-//         console.error("error connecting: " + err.stack);
-//     }
-//     res.redirect("/");
-// });
 
 
 module.exports = orm;

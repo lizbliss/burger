@@ -1,23 +1,52 @@
+<header>
 <h1>Eat-Da-Burger!</h1>
+<img src="/assets/img/burger1.jpg" class="burger-cartoon" alt="Burgers">
+  <p>Photo by: <a href="http://orig09.deviantart.net/4ed8/f/2013/233/2/0/kawaii_burger_by_amis0129-d6j5bq1.png">Amis0129</a></p>
+</header>
+<main>
 
-<ul>
+//Div for uneaten burgers
+<div class="row">
+<div class="col-xs-6">
   {{#each burgers}}
-    <li>
-      <p>
-        {{this.burger_name}}
+  {{#unless this.devoured}}
+  <div class="devour-it">
+  {{this.id}}.{{this.burger_name}}
+  </div>
 
-        <form action="/{{this.id}}?_method=DELETE" method="POST">
-          <input type="hidden" name="id" value="{{this.id}}">
-          <button type="submit">Delete</button>
-        </form>
-      </p>
-    </li>
+  <div class="devour-btn-form">
+  <form action="/{{this.id}}?_method=PUT" method="POST">
+  <button type="devour" class="devour-it-btn">Devour It!</button>
+  </form>
+  {{/unless}}
   {{/each}}
-</ul>
+</div>
+
+//Div for burgers that have been devoured
+
+<div class="row">
+<div class="col-xs-6">
+  {{#each burgers}}
+  {{#if this.devoured}}
+  <div class="devoured">
+  {{this.id}}.{{this.burger_name}}
+  </div>
+
+  <div class="devour-btn-form">
+  <form action="/{{this.id}}?_method=PUT" method="POST">
+  <input type="hidden" name="devoured" value="true"> 
+  </form>
+  {{/if}}
+  {{/each}}
+</div>
+</div>
+</div>
+    
 
 
-<form method="POST" action="/" class="button-size">
-	<textarea type="text" name="burger"></textarea>
+<form method="POST" action="/" class="adding-burger">
+	<input type="text" name="burger"></textarea>
 	<button type="submit">Submit</button>
   <p>Enter a burger you want to eat. Click the "Submit" button.</p>
 </form>
+</main>

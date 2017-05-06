@@ -3,34 +3,27 @@ var orm = require("../config/orm");
 var burger = {
     table: "burgers",
 
-    selectAllBurgers: function(cb) {
+    selectAll: function(cb) {
 
         orm.selectAll(this.table, function(burgersData) {
             console.log(burgersData);
             cb(burgersData);
-        })
+        });
 
     },
 
     insertOne: function(burger, cb) {
-        orm.insertOne(this.table, ['burger_name', 'devoured'], [burger.burger, '0'], function(burgersData) {
+        orm.insertOne(this.table, burger, function(burgersData) {
             console.log(burgersData);
             cb(burgersData);
-        })
+        });
     },
 
+    updateOne: function(status, condition, cb) {
+        orm.updateOne(this.table, { devoured: true }, condition, function(data) {
+            cb(data);
+        });
+    }
+};
 
-
-
-
-
-
-    // updateOne: function() {
-    //     orm.updateOne(this.table, function(burgersData) {
-    //         console.log(burgersData);
-    //         cb(burgersData);
-    //     })
-    // }
-
-}
 module.exports = burger;

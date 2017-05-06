@@ -42,10 +42,8 @@ var orm = {
                 console.log("error:" + err.stack);
             } else
                 cb(data);
-        })
-    });
-
-
-
+        });
+    }
+};
 
 module.exports = orm;

@@ -12,7 +12,7 @@ var orm = {
         })
     },
     insertOne: function(tableName, obj, callBack) {
-        var queryString = "INSERT INTO " + tableName + "SET ?";
+        var queryString = "INSERT INTO " + tableName + " SET ?";
         connection.query(queryString, obj, function(err, data) {
             if (err) {
                 console.log("error:" + err.stack);
@@ -24,7 +24,8 @@ var orm = {
 
 
     updateOne: function(tableName, status, condition, cb) {
-        var queryString = "UPDATE " + tableName + "SET 'devoured'=1 WHERE ?";
+        var queryString = "UPDATE " + tableName + " SET `devoured`= 1 WHERE ?";
+        console.log(queryString);
         connection.query(queryString, [condition], function(err, data) {
             if (err) {
 

@@ -24,13 +24,12 @@ app.engine("handlebars", exphbs({
 app.set("view engine", "handlebars");
 
 //Static assets
-app.use('/public', express.static('./app/public/'));
-
+//app.use('/public', express.static('./app/public/'));
+app.use(express.static(process.cwd() + '/public'));
 //Route controllers
 require("./controllers/burgers_controller")(app);
 
 //Set express port & start listening
-app.set('port', process.env.PORT);
-app.listen(app.get('port'), () => {
+app.listen(port, function() {
     console.log("App listening on PORT " + port);
 });

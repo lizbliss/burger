@@ -12,11 +12,11 @@ module.exports = function(app) {
     });
     //Route to insert a new burger
     app.post("/", function(req, res) {
-        var burger = {
+        var burger2 = {
             burger_name: req.body.burger
         };
-        console.log('Body:', burger);
-        burger.insertOne(burger, function(data) {
+        console.log("Body:", burger);
+        burger.insertOne(burger2, function(data) {
             res.redirect("/");
         });
 
